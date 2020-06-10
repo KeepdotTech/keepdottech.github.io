@@ -1,0 +1,329 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, maximum-scale=1,initial-scale=1">
+
+	<title>Keep</title>
+	<link rel="icon" href="favicon.png" type="image/png">
+	<link rel="shortcut icon" href="favicon.ico" type="img/x-icon">
+ 
+  <!--css stylesheet-->  
+  <link href="css/style.css" rel="stylesheet" type="text/css">
+  
+  <!--Bootstrap-->
+	<link rel="stylesheet" href="css/bootstrap.css">
+  <!--animate.css-->  
+  <link rel="stylesheet" href="css/animate.min.css">
+  <!--font-awesome-->
+  <link href="css/all.css" rel="stylesheet" type="text/css">
+
+  <!--scripts needed for bootstrap-->
+	<script src="js/jquery-3.2.1.slim.min.js"></script>
+	<script src="js/popper.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+  <!--Fonts-->
+
+
+  <!--Firebase-->
+  <script src="js/firebase.js"></script>
+
+  <script href="js/firebase-config.js"></script>
+
+
+
+
+</head>
+<body onload="initialize();">   
+<header class="header" id='header'>
+	<script src="js/functions.js"></script>
+  	<div id='container-welcome'>
+  		<figure class="logo animated fadeInDown">
+  				<a href="#"><img class='logo' src="img/logo-only.png" alt=""></a>
+  		</figure>
+  		<h1 class="animated fadeInDown">Welcome To Keep</h1>
+  		<ul class="subtitle ">
+  			<li class="subtitle animated fadeInDown">Producing the modern car alarm</li>
+      	<li class="subtitle"><button class="button-login animated fadeInUp servicelink" id='button-login' onclick="toggleLogin()">Login</button></li>
+  		</ul>
+			
+	</div>
+
+    <div id="container-login" style='display:none;'>
+      <div id="login form" >
+        <form onsubmit="return signIn()" method="post">
+           <div class="container-signin">
+             <div class="row-login">
+              <input type="text" placeholder="Username" name="uname" id='login-username' autocomplete="username" required class='col-login form-username animated fadeInDown'>
+             </div>
+             <div class="row-login">
+              <input type="password" placeholder="Password" name="psw" id='login-password' autocomplete="current-password" required class="form-password col-login animated fadeInDown">
+             </div>
+             <div class="row-login"> 
+              <button type="submit" class="button-login animated fadeInUp col-login" class='col'>Login</button>
+             </div>
+             <div class="row-login">
+             <p class='error-email col-login' id='error-email' style='display:none;'></p>
+             </div>
+            </div>
+        </form>
+      </div>
+    </div>
+
+</header>   
+ 
+<!--admin-search-->
+<a class="admin-anchor" id="admin-anchor"></a>
+<section id='admin-section'  style='display:none; height:100vh;'>
+  <div class='admin-search'>
+    <h2 class="admin-headings">Admin Dashboard</h2>
+    <h6 class="admin-headings">Begin typing to search users.</h6>
+
+  <div class='container-admin-content row'>  
+  <div class='col-sm-4'><input id='search-name' onkeyup="searchByName()" placeholder="Search by Name"></input></div>
+  <div class='col-sm-4'><input id='search-email'  onkeyup="searchByEmail()" placeholder="Search by email"></input></div>
+  <div class='col-sm-4'><input id='search-phone' onkeyup="searchByPhone()" placeholder="Search by phone"></input></div>
+  </div>
+
+  <table id='admin-list-container' class='admin-list-container'>
+  </table>
+
+</div>
+</section>
+
+<section class='main-outer-section' id='main-outer-section' id='login' style='display:none;'>
+  
+<!--navbar-->  
+
+<nav class="navbar navbar-expand-lg sticky-top navbar-light bg-light">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+      <ul class="main-nav">
+        <li><a href="#dash">Dashboard</a></li>
+        <li><a href="#control-alarm">Control</a></li>
+        <li><a href="#saved-videos">Saved Videos</a></li>
+        <li class="small-logo"><a href="#header"><img src="img/small-logo.png" alt=""></a></li>
+        <li><a href="#user-details">Profile</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a onclick="signOut()" style='cursor:pointer;'>Logout</a></li>
+      </ul>
+  </div>
+</nav>
+
+
+<!--dashboard-->
+<a class="anchor" id="dash"></a>
+<section class="dashboard">
+  <div class="container-dashboard">
+    <h2 class="dashboard-headings">Dashboard</h2>
+    <h6 class="dashboard-headings">You can control your alarm or view past break-ins from here.</h6>
+    <div class='row dashboard-headings'>
+          <div class="col-lg-6 animated fadeInLeft">
+          		<div class="container-dashboard-buttons">
+                  <a class="button-dash row" href="#control-alarm">
+                    <div class="dash-col1">
+                      <i class="fa fa-bell"></i>
+                    </div>
+                    <p class='dash-col2'>control your alarm</p>
+                  </a>
+
+
+                  <a class="button-dash row" href="#saved-videos">
+                    <div class="dash-col1">
+                      <i class="fa fa-video"></i>
+                    </div>
+                    <p class='dash-col2' >Watch Saved videos</p>
+                  </a>
+
+                  <a class="button-dash row " href="#contact">
+                    <div class="dash-col1">
+                      <i class="fas fa-question-circle"></i>
+                    </div>
+                    <p class='dash-col2'>Contact 24/7 Support</p>
+                  </a>
+
+                  <a class="button-dash row" href="#contact">
+                    <div class="dash-col1">
+                      <i class="fa fa-comments"></i>
+                    </div>
+                    <p class='dash-col2'>provide feedback</p>
+                  </button>
+                 </a>
+          </div> 
+        </div>
+          <div class="col-lg-6 animated fadeInRight">
+              <img class='footer-img' src="img/device.png">
+          </div>  
+    </div>    
+  </div>
+</section>
+
+<!--control-alarm-->
+<a class="anchor" id="control-alarm"></a>
+<section class="control-alarm" >
+		<div class="container-control">
+			<h2 class='control-headings'>Control Panel</h2>
+			<h6 class='control-headings'>Control the alarm from here</h6>
+      <div class="row control-headings">
+        <div class="col-lg-6 fadeInLeft ">
+           <div class="container-control-content">
+            <h2 class=" control-status" id='status'></h2>
+            <button id='alarmdiv' class="button-control button-login" onclick="toggleAlarm()">Turn your alarm off</button>
+              <script>
+              function toggleAlarm() {
+                 var thiselement = document.getElementById("alarmdiv");
+                 thiselement.style.display='None';
+                 var status=document.getElementById("status");
+                 status.innerHTML='Alarm is OFF';
+                   var postData = {
+				    armed: 'false'
+				  };
+
+				var userId = current_user_global;
+				var newPostKey = firebase.database().ref('/user_info/'+userId);
+  				newPostKey.child('armed').set('false');
+              }
+              </script>
+           </div>
+        </div>
+        <div class="col-lg-6 fadeInRight">
+           <div class="container-control-content" >
+               <iframe id='gmap-canvas' class='control-map'  frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
+               </iframe> 
+           </div>
+        </div>
+      </div>
+		</div>
+	</section>
+
+<a class="anchor" id="saved-videos"></a>
+<section class="saved-videos" >
+	<div class="container-saved">
+		<h2 class="saved-headings">Saved Videos</h2>
+		<h6 class="saved-headings">Any video recorded by the alarm will show up here.</h6>
+	
+<!-- Portfolio Gallery Grid -->
+<div  id='saved-videos-content'>
+
+<!-- END GRID -->
+</div>
+
+
+	</div>
+</section>
+
+<a class="anchor" id="user-details"></a>
+<section class="user-details" >
+<div class="container-user">
+		<h2 class="user-headings">My account</h2>
+		<h6 class="user-headings">View or edit your profile details here.</h6>
+		<div class="user-headings animated fadeInUp" style='margin:0px;'>
+			<div class="user-info-box name">
+				<h3><i class="fas fa-user"></i>Name:</h3>
+				<span id='username'></span>
+			</div>
+			<div class="user-info-box name">
+				<h3><i class="far fa-envelope"></i>Email:</h3>
+				<span id='useremail'></span>
+			</div>
+			<div class="user-info-box name">
+				<h3><i class="fa fa-phone-alt"></i>Phone:</h3>
+				<span id='userphone'></span>
+			</div>
+			<div class="user-info-box name">
+				<h3><i class="fas fa-microchip"></i>Alarm:</h3>
+				<span id='usermac'></span>
+			</div>
+
+		</div>
+</section>
+
+
+<a class="anchor" id="contact"></a>
+<section class="contact" >
+	<div class="container-contact">
+		<h2 class="contact-headings">Contact</h2>
+		<h6 class="contact-headings">Lets talk.</h6>
+		<div class="row saved-headings" style='margin:0px;'>
+			<div class="container-contact-content">
+				<div class="col-lg-6 animated fadeInLeft">
+					<div class="contact-info-box address ">
+						<h3><i class="fas fa-map-marker"></i>Address:</h3>
+						<span>739 Trabert Ave NW Suite D<br> Atlanta, Georgia 30318</span>
+					</div>
+					<div class="contact-info-box phone">
+						<h3><i class="fa fa-phone-alt"></i>24/7 :</h3>
+						<span>(404) 915-1881</span>
+					</div>
+					<div class="contact-info-box phone">
+						<h3><i class="fa fa-phone-alt"></i>Office:</h3>
+						<span>(404) 915-1881</span>
+					</div>
+					<div class="contact-info-box email">
+						<h3><i class="far fa-envelope"></i>email:</h3>
+						<span>admin@keep.tech</span>
+					</div>
+					<div class="contact-info-box hours">
+						<h3><i class="fas fa-clock"></i>Hours:</h3>
+						<span><strong>Monday - Friday:</strong> 10am - 4pm<br><strong>Saturday - Sunday:</strong> Closed</span>
+					</div>
+					<div class='row'>
+						<div class="col align-self-center social-link twitter">
+							<a class="fab fa-twitter-square"  href="#"></a>
+							<a class="fab fa-facebook-square"  href="#"></a>
+							<a class="fa fa-globe-americas"  href="https://www.keep.tech/"></a></div>
+					</div>
+				</div>
+			</div>	
+		</div>
+	</div>
+</section>
+
+
+
+
+
+
+
+<footer class="footer">
+		<div class="container-footer">
+			<div class="footer-logo"><a href="#" class='footer-img'><img src="img/small-logo.png" class='footer-img' alt=""></a></div>
+			<span class="copyright">&copy; Keep Technologies. All Rights Reserved</span>
+		</div>
+</footer>
+
+
+
+
+</section><!--MAIN-OUTER-SECTION>
+ 
+     <!--Firebase
+    <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-app.js"></script>
+    -->  
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyDMpxHOgWMZF61GISVDooQgsXtZnKnn_FI",
+        authDomain: "keep-tech.firebaseapp.com",
+        databaseURL: "https://keep-tech.firebaseio.com",
+        projectId: "keep-tech",
+        storageBucket: "keep-tech.appspot.com",
+        messagingSenderId: "178727412581",
+        appId: "1:178727412581:web:8b7d873ba1c7a871"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+
+    </script>
+
+
+
+</body>
+
+</html>
+
+
+
